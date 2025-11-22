@@ -1,6 +1,10 @@
-# vue2-vite-mf-provider
+# vue2-vite-js-mf-consumer
 
-This template should help get you started developing with Vue 3 in Vite.
+也可叫做 `vue2-vite-js-mf-consumer`
+
+模块联邦提供者 vue2 示例
+
+https://github.com/long36708/vue2-vite-ts-mf-provider.git
 
 ## 第一步：安装运行时依赖
 
