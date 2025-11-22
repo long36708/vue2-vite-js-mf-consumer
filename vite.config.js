@@ -13,4 +13,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy:{
+      '/module-federation':{
+        target: 'http://localhost:4174',
+        changeOrigin: true,
+      }
+    }
+  }
 })

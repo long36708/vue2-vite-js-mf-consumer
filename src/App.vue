@@ -1,45 +1,32 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import {getMfInstance} from "@/helpers/mf-helper.js";
 
-// 如果没有使用构建插件，那么可以创建新的实例，并注册模块
-import { createInstance } from '@module-federation/enhanced/runtime';
+const mf = getMfInstance()
 
-const mf = createInstance({
-  name: 'mf_host',
-  remotes: [
-    {
-      name: 'vue2_vite_provider',
-      alias: 'remote',
-      entry: 'http://localhost:4174/mf-manifest.json',
-    }
-  ]
-});
-// const RemoteButton = defineAsyncComponent(
-//     // @ts-ignore
-//     () => mf.loadRemote("remote/BaseButton")
-// );
-const RemoteButton =  () => mf.loadRemote('vue2_vite_provider/BaseButton');
-// mf.registerRemotes([
-//   {
-//     name: 'remote1',
-//     alias: 'remote-1',
-//     entry: 'http://localhost:3001/mf-manifest.json',
-//   }
-// ]);
+const RemoteButton = () => mf.loadRemote('vue2_vite_provider/BaseButton');
+const loadAddModule = () => mf.loadRemote('vue2_vite_provider/add');
+
+async function handleClick() {
+  console.log('clicked')
+  const addMd = await loadAddModule()
+  const res = addMd.add(1, 2)
+  console.log(res)
+}
 </script>
 
 <template>
   <div>
     <header>
-      <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+      <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125"/>
 
       <div class="wrapper">
-        <HelloWorld msg="You did it!" />
+        <HelloWorld msg="You did it!"/>
       </div>
     </header>
 
     <main>
-      <RemoteButton/>
+      <RemoteButton @click="handleClick"/>
     </main>
   </div>
 </template>
